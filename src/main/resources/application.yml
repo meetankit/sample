@@ -15,10 +15,29 @@ spring:
     show-banner: false
 
 ##########################################
+# Microservice defaults
+##########################################
+logging:
+  level:
+    com.netflix.discovery: OFF
+
+##########################################
 # Zuul config
 ##########################################
 zuul:
-  prefix: api
+#  prefix: api
+  stripPrefix: true
+  routes:
+      blueservice:
+        path: /blue/**
+        serviceId: blueservice
+      greenservice:
+        path: /green/**
+        serviceId: greenservice
+      microservice-scaffold:
+        path: /g2w/**
+        serviceId: microservice-scaffold
+  ignored-services: api-proxy-microservice
 
 ##########################################
 # Eureka config

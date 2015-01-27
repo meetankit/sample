@@ -1,2 +1,2 @@
 mvn -U clean install
-java -jar target/microservice-*.jar --eureka.password=password
+java -jar target/api-proxy-microservice-*.jar --eureka.password=password
