@@ -10,20 +10,23 @@
 ###############################################################################
 -->
 
-G2W Microservices Scaffold
-==========================
+G2W APi Proxy (Zuul)
+====================
 
-G2W Microservices Scaffold. Get started with a Microservice, modify to your needs!
+Zuul proxy server using spring cloud.
 Please email any suggestions and correction to g2w-microservices@citrix.com
 
+See:
+[Zuul Spring Cloud](http://projects.spring.io/spring-cloud/spring-cloud.html#_router_and_filter_zuul)
+[Netflix Zuul](https://github.com/Netflix/zuul/wiki)
 
 To run
 ------
 
     $ mvn clean install
-    $ java -jar target/microservice-1.0-SNAPSHOT.jar --eureka.password=password
+    $ java -jar target/api-proxy-microservice-*.jar --eureka.password=password
     or
-    $ java -jar target/microservice-1.0-SNAPSHOT.jar --port=7070 --eureka.password=password
+    $ java -jar target/api-proxy-microservice-*.jar --port=7070 --eureka.password=password
 
     
 **Startup Options:**
@@ -39,23 +42,8 @@ To run
 Usage
 -----
 
-**Use:** http://localhost:7070/g2w
-
-    $ curl -i \
-    -k \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -X GET \
-    "http://localhost:7070/g2w"
-
-    HTTP/1.1 200 OK
-    Server: Apache-Coyote/1.1
-    X-Application-Context: application:7070
-    Content-Type: application/json;charset=UTF-8
-    Transfer-Encoding: chunked
-    Date: Fri, 01 Aug 2014 21:52:43 GMT
-
-    I Love G2W Microservices!!
+To look at all the registered API mappings to backend services:
+**Use:** http://localhost:7070/mappings
 
 
 Logging
