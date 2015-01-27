@@ -1,0 +1,34 @@
+## For a list of some properties that can be overriden go to http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+## The definitive list of properties comes from searching the source code (including Spring source code) for @ConfigurationProperties and @Value annotations, as well as the occasional use of RelaxedEnvironment
+
+##########################################
+# Tomcat config
+##########################################
+server:
+  port: ${port:0}
+
+##########################################
+# Spring config
+##########################################
+spring:
+  main:
+    show-banner: false
+
+##########################################
+# Zuul config
+##########################################
+zuul:
+  prefix: api
+
+##########################################
+# Eureka config
+##########################################
+eureka:
+  password: ${eureka.password:${SECURITY_USER_PASSWORD:password}} # Don't use a default password in a real app
+  client:
+    serviceUrl:
+      defaultZone: http://user:${eureka.password}@127.0.0.1:8761/eureka/
+  instance:
+   leaseRenewalIntervalInSeconds: 10
+   metadataMap:
+     instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
