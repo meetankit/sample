@@ -36,8 +36,7 @@ zuul:
         serviceId: greenservice
       microservice-scaffold:
         path: /g2w/**
-        serviceId: microservice-scaffold
-  ignored-services: api-proxy-microservice
+        serviceId: api-proxy-microservice
 
 ##########################################
 # Eureka config
