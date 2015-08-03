@@ -36,8 +36,6 @@ public class Application {
     }
 
     @RequestMapping(value = "/authToken/{token}")
-    @ResponseBody
-    @Monitor
     public void verifyToken(@PathVariable("token") String token) {
         AuthenticationToken tokenResponse = restTemplate.getForObject(url, AuthenticationToken.class, token);
         System.out.println("response is=" + tokenResponse.getUserKey());
