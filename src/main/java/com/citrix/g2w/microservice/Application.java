@@ -33,7 +33,7 @@ public class Application {
 
     @RequestMapping(value = "/authToken/{token}")
     public void verifyToken(@PathVariable("token") String token) {
-        AuthenticationToken tokenResponse = tokenValidatorService.getResponseOfVerifyToken(token);
+        AuthenticationToken tokenResponse = tokenValidatorService.getResponse(token);
         System.out.println("response is=" + tokenResponse.getUserKey());
     }
 

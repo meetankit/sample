@@ -7,5 +7,5 @@ import com.citrix.g2w.microservice.api.dto.AuthenticationToken;
  */
 public interface TokenValidatorService {
 
-    public AuthenticationToken getResponseOfVerifyToken(String token);
+    public AuthenticationToken getResponse(String token);
 }

@@ -19,7 +19,7 @@ public class TokenValidatorServiceImpl implements TokenValidatorService {
     }
 
     @Override
-    public AuthenticationToken getResponseOfVerifyToken(String token) {
+    public AuthenticationToken getResponse(String token) {
         return restTemplate.getForObject(url, AuthenticationToken.class, token);
     }
 }
