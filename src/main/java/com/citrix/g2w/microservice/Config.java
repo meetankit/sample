@@ -1,5 +1,6 @@
 package com.citrix.g2w.microservice;
 
+import com.citrix.g2w.microservice.Service.TokenValidatorServiceImpl;
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,17 @@ import java.util.List;
  */
 @Configuration
 public class Config {
+
+    /**
+     * Token validator service
+     * @return {@link TokenValidatorServiceImpl}
+     */
+    @Bean
+    public TokenValidatorServiceImpl tokenValidatorService() {
+        TokenValidatorServiceImpl tokenValidatorService = new TokenValidatorServiceImpl();
+        tokenValidatorService.setRestTemplate(jsonRestTemplate());
+        return tokenValidatorService;
+    }
 
     /**
      * rest template
