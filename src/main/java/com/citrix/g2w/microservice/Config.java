@@ -1,17 +1,14 @@
 package com.citrix.g2w.microservice;
 
-import com.citrix.accountrest.service.CollaborationAccountServiceImpl;
-import com.citrix.authentication.service.AuthenticationServiceRest;
-import com.citrix.authentication.service.AuthenticationServiceRestImpl;
-import com.citrix.collaboration.services.account.CollaborationAccountService;
-import com.citrix.security.authentication.RestAuthenticationTokenService;
-import com.citrix.security.authentication.RestAuthenticationTokenServiceImpl;
-import com.citrix.util.mapping.Assembler;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 /**
  * Created by Gaurav on 31/07/15.
@@ -19,43 +16,31 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class Config {
 
-    @Autowired
-    private Assembler assembler;
-
+    /**
+     * rest template
+     * @return {@link RestTemplate}
+     */
     @Bean
-    public RestAuthenticationTokenService restAuthenticationTokenService() {
-        RestAuthenticationTokenServiceImpl restAuthenticationTokenService = new RestAuthenticationTokenServiceImpl();
-        restAuthenticationTokenService.setAuthenticationServiceRest(authenticationServiceRest());
-        restAuthenticationTokenService.setCollaborationAccountService(collaborationAccountService());
-        return restAuthenticationTokenService;
-    }
-
-    @Bean
-    AuthenticationServiceRest authenticationServiceRest() {
-        AuthenticationServiceRestImpl authenticationServiceRest = new AuthenticationServiceRestImpl();
-        authenticationServiceRest.setAuthenticationServiceBaseUrl("http://authed1svc.qai.expertcity.com/authentication-service");
-        authenticationServiceRest.setAuthSystemToken("internalservices");
-        authenticationServiceRest.setCacheExpirationTimeMillis(300000);
-        authenticationServiceRest.setRestTemplate(restTemplate());
-        return authenticationServiceRest;
-    }
-
-    @Bean
-    RestTemplate restTemplate() {
-        SimpleClientHttpRequestFactory simpleClientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-        simpleClientHttpRequestFactory.setConnectTimeout(5000);
-        simpleClientHttpRequestFactory.setReadTimeout(5000);
+    public RestTemplate jsonRestTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setRequestFactory(simpleClientHttpRequestFactory);
+        restTemplate.setRequestFactory(httpRequestFactory());
+        List<HttpMessageConverter<?>> messageConverters = Lists.newArrayList();
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        messageConverters.add(converter);
+        restTemplate.setMessageConverters(messageConverters);
         return restTemplate;
     }
 
+    /**
+     * request factory
+     * @return {@link SimpleClientHttpRequestFactory}
+     */
     @Bean
-    CollaborationAccountService collaborationAccountService() {
-        CollaborationAccountServiceImpl collaborationAccountService = new CollaborationAccountServiceImpl();
-        collaborationAccountService.setAccountAssembler(assembler);
-        collaborationAccountService.setSettingsAssembler(assembler);
-        collaborationAccountService.setUserAssembler(assembler);
-        return collaborationAccountService;
+    public SimpleClientHttpRequestFactory httpRequestFactory() {
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setReadTimeout(5000);
+        requestFactory.setConnectTimeout(5000);
+        return requestFactory;
     }
+
 }
