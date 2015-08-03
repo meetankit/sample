@@ -5,7 +5,7 @@
 # Tomcat config
 ##########################################
 server:
-  port: ${port:0}
+  port: ${port:8762}
 
 ##########################################
 # Spring config
@@ -37,12 +37,14 @@ zuul:
       microservice-scaffold:
         path: /g2w/**
         serviceId: api-proxy-microservice
+  route:
+      home: /
 
 ##########################################
 # Eureka config
 ##########################################
 eureka:
-  password: ${eureka.password:${SECURITY_USER_PASSWORD:password}} # Don't use a default password in a real app
+  password: password # Don't use a default password in a real app
   client:
     serviceUrl:
       defaultZone: http://user:${eureka.password}@127.0.0.1:8761/eureka/
