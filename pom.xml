@@ -1,130 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.citrix.g2w.microservice</groupId>
-    <artifactId>api-proxy-microservice</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+	<groupId>com.citrix.g2w.microservice</groupId>
+	<artifactId>api-proxy-microservice</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
-    <name>api-proxy-microservice</name>
-    <description>api proxy microservice</description>
+	<name>api-proxy-microservice</name>
+	<description>api proxy microservice</description>
 
- <parent>
-        <!-- Note: this bring in quite a bit of default dependencies -->
-        <!-- see: https://github.com/spring-projects/spring-boot/blob/master/spring-boot-starters/spring-boot-starter-parent/pom.xml -->
-        <!-- see: https://github.com/spring-projects/spring-boot/blob/master/spring-boot-dependencies/pom.xml -->
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.2.1.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+	<parent>
+		<groupId>com.citrix.g2w</groupId>
+		<artifactId>microservices-cloud-support</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<properties>
+		<app.name>api-proxy-microservice</app.name>
+		<app.name.long>api proxy microservice</app.name.long>
 
-    <properties>
-        <!-- Build defaults -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+		<!-- tomcat -->
+		<tomcat.port>0</tomcat.port>
+		<!-- 0 means random port -->
+		<!-- miscellaneous -->
+		<surefire.report.plugin.version>2.18.1</surefire.report.plugin.version>
 
-        <!-- Spring boot startup class -->
-        <start-class>com.citrix.g2w.microservice.Application</start-class>
+		<!-- Spring boot startup class -->
+		<start-class>com.citrix.g2w.microservice.Application</start-class>
+	</properties>
+	<scm>
+		<connection>scm:git:ssh://git@stash1.ops.expertcity.com:7999/G2WBK/microservice-api-proxy.git</connection>
+		<developerConnection>scm:git:ssh://git@stash1.ops.expertcity.com:7999/G2WBK/microservice-api-proxy.git
+        </developerConnection>
+		<url>scm:git:ssh://git@stash1.ops.expertcity.com:7999/G2WBK/microservice-api-proxy.git</url>
+	</scm>
 
-        <!-- microservices foundation -->
-        <microservice.foundation.version>0.1-SNAPSHOT</microservice.foundation.version>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zuul</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<argLine>-Xmx1024m</argLine>
+					<reportsDirectory>${surefire.and.failsafe.report.dir}</reportsDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>-Xmx1024m -Duser.timezone="America/Los_Angeles"</argLine>
+					<reportsDirectory>${surefire.and.failsafe.report.dir}</reportsDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${surefire.report.plugin.version}</version>
+				<configuration>
+					<reportsDirectory>${surefire.and.failsafe.report.dir}</reportsDirectory>
+				</configuration>
+			</plugin>
 
-        <!-- Spring versions -->
-        <spring.boot.version>1.2.1.RELEASE</spring.boot.version>
-        <spring-cloud-starter-zuul>1.0.0.RC1</spring-cloud-starter-zuul>
-        <spring.boot.maven.plugin.version>1.2.0.RELEASE</spring.boot.maven.plugin.version>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
 
-        <!-- distribution management -->
-        <citrix.maven.repo.address>repo.ad.corp.expertcity.com:8080</citrix.maven.repo.address>
-    </properties>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
-    <dependencies>
-
-        <!-- Spring boot -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.boot.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-
-        <!-- Zuul Spring Cloud -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zuul</artifactId>
-            <version>${spring-cloud-starter-zuul}</version>
-        </dependency>
-
-        <!-- microservices foundation -->
-        <dependency>
-            <groupId>com.citrix.g2w.microservice</groupId>
-            <artifactId>microservice-foundation</artifactId>
-            <version>${microservice.foundation.version}</version>
-        </dependency>
-    </dependencies>
-
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.maven.plugin.version}</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-
-        </plugins>
-    </build>
-
-    <repositories>
-        <repository>
-            <id>spring-snapshots</id>
-            <url>http://repo.spring.io/libs-snapshot</url>
-            <snapshots><enabled>true</enabled></snapshots>
-        </repository>
-        <repository>
-            <id>spring-repo</id>
-            <name>Spring Repository</name>
-            <url>http://repo.spring.io/release</url>
-        </repository>
-    </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>Repository Archiva Managed Internal Repository</id>
-            <name>Repository Archiva Managed Internal Repository</name>
-            <url>http://${citrix.maven.repo.address}/archiva/repository/internal/</url>
-        </repository>
-        <snapshotRepository>
-            <id>Repository Archiva Managed Snapshot Repository</id>
-            <name>Repository Archiva Managed Snapshot Repository</name>
-            <url>http://${citrix.maven.repo.address}/archiva/repository/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
-
+	<repositories>
+		<repository>
+			<id>maven-snapshots</id>
+			<url>http://repo.ad.corp.expertcity.com:8080/archiva/repository/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>maven-releases</id>
+			<name>Maven Archiva Repository</name>
+			<url>http://repo.ad.corp.expertcity.com:8080/archiva/repository/internal</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>libs-release</name>
+			<url>https://artifactory.prodwest.citrixsaassbe.net/artifactory/libs-release</url>
+		</repository>
+		<repository>
+			<snapshots />
+			<id>snapshots</id>
+			<name>libs-snapshot</name>
+			<url>https://artifactory.prodwest.citrixsaassbe.net/artifactory/libs-snapshot</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>plugins-release</name>
+			<url>https://artifactory.prodwest.citrixsaassbe.net/artifactory/plugins-release</url>
+		</pluginRepository>
+		<pluginRepository>
+			<snapshots />
+			<id>snapshots</id>
+			<name>plugins-snapshot</name>
+			<url>https://artifactory.prodwest.citrixsaassbe.net/artifactory/plugins-snapshot</url>
+		</pluginRepository>
+	</pluginRepositories>
 </project>
