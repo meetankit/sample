@@ -20,7 +20,7 @@ spring:
 logging:
   level:
     com.netflix.discovery: OFF
-  file: logs/apiproxyserver.log
+  file: logs/apiproxyserver
 
 log:
   access:
