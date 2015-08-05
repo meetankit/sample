@@ -1,9 +1,10 @@
-package com.citrix.g2w.microservice.filters;
+package com.citrix.g2w.microservice.apiproxy.filters;
 
-import com.citrix.g2w.microservice.Service.TokenValidatorService;
-import com.citrix.g2w.microservice.api.dto.AuthenticationToken;
+import com.citrix.g2w.microservice.apiproxy.dto.AuthenticationToken;
+import com.citrix.g2w.microservice.apiproxy.service.TokenValidatorService;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

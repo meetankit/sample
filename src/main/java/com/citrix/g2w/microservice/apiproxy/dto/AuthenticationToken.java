@@ -1,4 +1,4 @@
-package com.citrix.g2w.microservice.api.dto;
+package com.citrix.g2w.microservice.apiproxy.dto;
 
 import java.util.Date;
 import java.util.List;

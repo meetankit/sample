@@ -1,4 +1,4 @@
-package com.citrix.g2w.microservice;
+package com.citrix.g2w.microservice.apiproxy;
 
 import java.util.HashMap;
 import java.util.Map;

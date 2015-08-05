@@ -1,7 +1,8 @@
-package com.citrix.g2w.microservice;
+package com.citrix.g2w.microservice.apiproxy;
 
-import com.citrix.g2w.microservice.Service.TokenValidatorServiceImpl;
+import com.citrix.g2w.microservice.apiproxy.service.TokenValidatorServiceImpl;
 import com.google.common.collect.Lists;
+
 import org.springframework.cloud.netflix.zuul.ZuulConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

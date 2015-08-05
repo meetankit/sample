@@ -27,7 +27,7 @@
 		<surefire.report.plugin.version>2.18.1</surefire.report.plugin.version>
 
 		<!-- Spring boot startup class -->
-		<start-class>com.citrix.g2w.microservice.ApiProxyApplication</start-class>
+		<start-class>com.citrix.g2w.microservice.apiproxy.ApiProxyApplication</start-class>
 	</properties>
 	<scm>
 		<connection>scm:git:ssh://git@stash1.ops.expertcity.com:7999/G2WBK/microservice-api-proxy.git</connection>
