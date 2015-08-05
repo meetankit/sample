@@ -1,7 +1,14 @@
 package com.citrix.g2w.microservice;
 
 import com.citrix.g2w.microservice.Service.TokenValidatorServiceImpl;
+import com.citrix.g2w.microservice.filters.TokenValidatorFilter;
 import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.netflix.zuul.ZuulConfiguration;
+import org.springframework.cloud.netflix.zuul.filters.ProxyRouteLocator;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -15,7 +22,16 @@ import java.util.List;
  * Created by Gaurav on 31/07/15.
  */
 @Configuration
-public class ApiProxyConfiguration {
+public class ApiProxyConfiguration extends ZuulConfiguration {
+
+    @Autowired
+    private DiscoveryClient discovery;
+
+    @Autowired
+    private ZuulProperties zuulProperties;
+
+    @Autowired
+    private ServerProperties server;
 
     /**
      * Token validator service
@@ -55,4 +71,15 @@ public class ApiProxyConfiguration {
         return requestFactory;
     }
 
+    @Bean
+    @Override
+    public ProxyRouteLocator routeLocator() {
+        return new ProxyRouteLocator(this.server.getServletPrefix(), this.discovery,
+                this.zuulProperties);
+    }
+
+    @Bean
+    public TokenValidatorFilter tokenValidatorFilter() {
+        return new TokenValidatorFilter(routeLocator());
+    }
 }

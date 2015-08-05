@@ -1,6 +1,5 @@
 package com.citrix.g2w.microservice;
 
-import com.citrix.g2w.microservice.ApiProxyApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.web.WebAppConfiguration;
