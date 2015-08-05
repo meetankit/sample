@@ -43,6 +43,9 @@ zuul:
       microservice-scaffold:
         path: /g2w/**
         serviceId: apiproxyserver
+      reporting-write:
+        path: /reportingwrite/**
+        serviceId: g2wreportingwrite
   route:
       home: /
 
