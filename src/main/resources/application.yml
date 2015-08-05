@@ -55,6 +55,7 @@ zuul:
 eureka:
   password: password # Don't use a default password in a real app
   client:
+    enabled: false
     serviceUrl:
       defaultZone: http://user:${eureka.password}@127.0.0.1:8761/eureka/
   instance:
@@ -77,6 +78,7 @@ server:
   port: 8080
 eureka:
   client:
+    enabled: true
     serviceUrl:
       defaultZone: http://user:${eureka.password}@g2wreged1.acad.expertcity.com:8761/eureka/  
 ####################################################################################

@@ -8,28 +8,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 @EnableZuulProxy
 @SpringBootApplication
 @RestController
 public class ApiProxyApplication {
 
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String upload(@RequestParam("file") MultipartFile file) {
-        return "Hello world";
-    }
-
     @RequestMapping("/")
     public String home() {
-        return "Hello.. Welcome to Home Page";
-    }
-
-    @RequestMapping(value = "/abc")
-    public String homes() {
         return "Hello.. Welcome to Home Page";
     }
 
