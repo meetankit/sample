@@ -41,7 +41,7 @@ zuul:
         serviceId: greenservice
       microservice-scaffold:
         path: /g2w/**
-        serviceId: api-proxy-microservice
+        serviceId: apiproxyserver
   route:
       home: /
 
@@ -57,3 +57,68 @@ eureka:
    leaseRenewalIntervalInSeconds: 10
    metadataMap:
      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+---
+####################################################################################
+#
+#
+#     ED profile
+#
+#
+####################################################################################   
+---   
+spring:
+  profiles: ED
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:${eureka.password}@g2wreged1.acad.expertcity.com:8761/eureka/  
+####################################################################################
+#
+#
+#     RC profile
+#
+#
+####################################################################################
+---
+spring:
+  profiles: RC
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:${eureka.password}@g2wreged1.acad.expertcity.com:8761/eureka/  
+####################################################################################
+#
+#
+#     STAGE profile
+#
+#
+####################################################################################
+---
+spring:
+  profiles: STAGE
+server:
+  port: 8080
+####################################################################################
+#
+#
+#     LIVE profile
+#
+#
+####################################################################################
+---
+spring:
+  profiles: LIVE
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://user:${eureka.password}@g2wreged1.acad.expertcity.com:8761/eureka/    
+##########################################
+# Microservice properties
+##########################################     

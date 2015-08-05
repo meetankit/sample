@@ -24,9 +24,9 @@ To run
 ------
 
     $ mvn clean install
-    $ java -jar target/api-proxy-microservice-*.jar --eureka.password=password
+    $ java -jar target/apiproxyserver-*.jar --eureka.password=password
     or
-    $ java -jar target/api-proxy-microservice-*.jar --port=7070 --eureka.password=password
+    $ java -jar target/apiproxyserver-*.jar --port=7070 --eureka.password=password
 
     
 **Startup Options:**
