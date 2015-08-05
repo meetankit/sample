@@ -14,17 +14,18 @@ spring:
   main:
     show-banner: false
 
-security:
-  user:
-    name: user
-    password: password
-
 ##########################################
 # Microservice defaults
 ##########################################
 logging:
   level:
     com.netflix.discovery: OFF
+  file: logs/apiproxyserver
+
+log:
+  access:
+    file:
+      directory: logs
 
 ##########################################
 # Zuul config
