@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Gaurav on 31/07/15.
  */
 @Configuration
-public class Config {
+public class ApiProxyConfiguration {
 
     /**
      * Token validator service

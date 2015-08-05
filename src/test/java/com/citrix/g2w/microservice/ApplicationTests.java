@@ -1,6 +1,6 @@
 package com.citrix.g2w.microservice;
 
-import com.citrix.g2w.microservice.Application;
+import com.citrix.g2w.microservice.ApiProxyApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -8,7 +8,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = ApiProxyApplication.class)
 @WebAppConfiguration
 public class ApplicationTests {
 

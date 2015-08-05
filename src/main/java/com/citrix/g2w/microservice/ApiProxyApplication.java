@@ -2,9 +2,11 @@ package com.citrix.g2w.microservice;
 
 import com.citrix.g2w.microservice.Service.TokenValidatorService;
 import com.citrix.g2w.microservice.api.dto.AuthenticationToken;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 @EnableZuulProxy
 @SpringBootApplication
 @RestController
-public class Application {
+@EnableCircuitBreaker 
+public class ApiProxyApplication {
 
     @Autowired
     private TokenValidatorService tokenValidatorService;
@@ -38,6 +41,6 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(ApiProxyApplication.class, args);
     }
 }
