@@ -1,3 +1,16 @@
+/*
+ * Copyright (c) 1998-2015 Citrix Online LLC
+ * All Rights Reserved Worldwide.
+ *
+ * THIS PROGRAM IS CONFIDENTIAL AND PROPRIETARY TO CITRIX ONLINE
+ * AND CONSTITUTES A VALUABLE TRADE SECRET.  Any unauthorized use,
+ * reproduction, modification, or disclosure of this program is
+ * strictly prohibited.  Any use of this program by an authorized
+ * licensee is strictly subject to the terms and conditions,
+ * including confidentiality obligations, set forth in the applicable
+ * License and Co-Branding Agreement between Citrix Online LLC and
+ * the licensee.
+ */
 package com.citrix.g2w.microservice.apiproxy;
 
 import java.util.HashMap;
@@ -23,11 +36,11 @@ public class ApiProxyApplication {
     @RequestMapping(value = "/authToken")
     public Map<String, String> verifyToken(@RequestHeader("token") String token,
                             @RequestHeader("userKey") String userKey,
-                            @RequestHeader("grantedAuthorities") String grantedAuthorities) {
+                            @RequestHeader("roles") String grantedAuthorities) {
         Map<String, String> response = new HashMap<>();
         response.put("token", token);
         response.put("userKey", userKey);
-        response.put("grantedAuthorities", grantedAuthorities);
+        response.put("roles", grantedAuthorities);
         return response;
     }
 
