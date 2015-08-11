@@ -24,6 +24,7 @@
 		<tomcat.port>0</tomcat.port>
 		<!-- 0 means random port -->
 		<!-- miscellaneous -->
+		<lombok.version>1.16.4</lombok.version>
 		<surefire.report.plugin.version>2.18.1</surefire.report.plugin.version>
 
 		<!-- Spring boot startup class -->
@@ -45,6 +46,18 @@
             <groupId>com.citrix.g2w</groupId>
             <artifactId>microservices-regdiscovery-support</artifactId>
             <version>${microservices.support.version}</version>
+        </dependency>
+         <!-- Utility Annotations for minimizing boilerplate code -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <!-- Google Guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 	</dependencies>
 	<build>

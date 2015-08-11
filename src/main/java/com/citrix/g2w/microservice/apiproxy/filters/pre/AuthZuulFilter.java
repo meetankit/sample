@@ -13,29 +13,25 @@
  */
 package com.citrix.g2w.microservice.apiproxy.filters.pre;
 
-import com.citrix.g2w.microservice.apiproxy.dto.AuthenticationToken;
-import com.citrix.g2w.microservice.apiproxy.service.TokenValidatorService;
-import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
+import javax.servlet.http.HttpServletRequest;
 
-import com.netflix.zuul.exception.ZuulException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 
-import javax.servlet.http.HttpServletRequest;
+import com.citrix.g2w.microservice.apiproxy.dto.AuthenticationToken;
+import com.citrix.g2w.microservice.apiproxy.service.AuthClientService;
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
 
 /**
  * Created by Gaurav on 04/08/15.
  */
 @Component
-public class TokenValidatorFilter extends ZuulFilter {
+public class AuthZuulFilter extends ZuulFilter {
 
     @Autowired
-    private TokenValidatorService tokenValidatorService;
+    private AuthClientService authClientService;
 
     /**
      * Represent type of filter.
@@ -80,7 +76,7 @@ public class TokenValidatorFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
         String token = request.getHeader("token");
         try {
-            AuthenticationToken authenticationToken = tokenValidatorService.getResponse(token);
+            AuthenticationToken authenticationToken = authClientService.verifyToken(token);
             ctx.addZuulRequestHeader("userKey", authenticationToken.getUserKey().toString());
             StringBuilder grantedAuthorities = new StringBuilder();
             for (String authorities : authenticationToken.getGrantedAuthorities()) {

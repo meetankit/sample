@@ -13,27 +13,32 @@
  */
 package com.citrix.g2w.microservice.apiproxy.service;
 
-import com.citrix.g2w.microservice.apiproxy.dto.AuthenticationToken;
+import lombok.Getter;
+import lombok.Setter;
 
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import com.citrix.g2w.microservice.apiproxy.dto.AuthenticationToken;
 
 /**
  * Created by Gaurav on 03/08/15.
  */
-public class TokenValidatorServiceImpl implements TokenValidatorService {
+@Component
+@Setter
+@Getter
+@ConfigurationProperties(prefix="authService")
+public class AuthClientServiceImpl implements AuthClientService {
 
+    @Autowired
     private RestTemplate restTemplate;
 
-    private String url = "http://authed1svc.qai.expertcity.com/authentication-service/tokens/{token}";
-
-    @Required
-    public void setRestTemplate(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+    private String baseUrl; 
 
     @Override
-    public AuthenticationToken getResponse(String token) {
-        return restTemplate.getForObject(url, AuthenticationToken.class, token);
+    public AuthenticationToken verifyToken(String token) {
+        return restTemplate.getForObject(baseUrl + "/tokens/{token}", AuthenticationToken.class, token);
     }
 }
