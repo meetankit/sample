@@ -75,7 +75,6 @@ public class AuthZuulFilter extends ZuulFilter {
      */
     @Override
     public Object run() {
-
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         String token = request.getHeader("token");

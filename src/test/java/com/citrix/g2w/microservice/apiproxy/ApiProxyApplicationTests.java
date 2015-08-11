@@ -1,3 +1,16 @@
+/*
+ * Copyright (c) 1998-2015 Citrix Online LLC
+ * All Rights Reserved Worldwide.
+ *
+ * THIS PROGRAM IS CONFIDENTIAL AND PROPRIETARY TO CITRIX ONLINE
+ * AND CONSTITUTES A VALUABLE TRADE SECRET.  Any unauthorized use,
+ * reproduction, modification, or disclosure of this program is
+ * strictly prohibited.  Any use of this program by an authorized
+ * licensee is strictly subject to the terms and conditions,
+ * including confidentiality obligations, set forth in the applicable
+ * License and Co-Branding Agreement between Citrix Online LLC and
+ * the licensee.
+ */
 package com.citrix.g2w.microservice.apiproxy;
 
 import org.junit.Test;
@@ -11,13 +24,19 @@ import java.lang.annotation.Annotation;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+/**
+ * Test for ApiProxyApplication
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ApiProxyApplication.class)
 @WebAppConfiguration
 public class ApiProxyApplicationTests {
 
+	/**
+	 * Checks for EnableZuulProxy annotation.
+	 */
 	@Test
-	public void testClassConfiguration() {
+	public void testClassAnnotation() {
 		ApiProxyApplication application = new ApiProxyApplication();
 		Class c = application.getClass();
 		Boolean hasAnnotation = false;
