@@ -20,6 +20,11 @@ import com.citrix.g2w.microservice.apiproxy.dto.AuthenticationToken;
  */
 public interface AuthClientService {
 
+    /**
+     * Method to verify auth token.
+     * @param token
+     * @return AuthenticationToken
+     */
     AuthenticationToken verifyToken(String token);
     
 }

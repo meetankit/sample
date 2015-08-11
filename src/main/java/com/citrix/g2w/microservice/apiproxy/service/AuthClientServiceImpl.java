@@ -35,8 +35,11 @@ public class AuthClientServiceImpl implements AuthClientService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private String baseUrl; 
+    private String baseUrl;
 
+    /**
+     * {@link AuthClientService}
+     */
     @Override
     public AuthenticationToken verifyToken(String token) {
         return restTemplate.getForObject(baseUrl + "/tokens/{token}", AuthenticationToken.class, token);

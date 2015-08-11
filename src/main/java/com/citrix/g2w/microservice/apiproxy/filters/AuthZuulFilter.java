@@ -29,6 +29,8 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 /**
+ * Filter for doing Authentication.
+ *
  * Created by Gaurav on 04/08/15.
  */
 @Component
