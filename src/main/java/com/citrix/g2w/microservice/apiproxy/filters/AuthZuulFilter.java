@@ -11,12 +11,16 @@
  * License and Co-Branding Agreement between Citrix Online LLC and
  * the licensee.
  */
-package com.citrix.g2w.microservice.apiproxy.filters.pre;
+package com.citrix.g2w.microservice.apiproxy.filters;
+
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestClientException;
 
 import com.citrix.g2w.microservice.apiproxy.dto.AuthenticationToken;
@@ -84,8 +88,12 @@ public class AuthZuulFilter extends ZuulFilter {
             }
             ctx.addZuulRequestHeader("roles", grantedAuthorities.substring(2));
         } catch (RestClientException re) {
-//            throw new ZuulException(Throwable);
-//            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+            ctx.setSendZuulResponse(false);
+            try {
+                (new ProxyRequestHelper()).setResponse(org.apache.http.HttpStatus.SC_UNAUTHORIZED, null, new LinkedMultiValueMap<String, String>());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
