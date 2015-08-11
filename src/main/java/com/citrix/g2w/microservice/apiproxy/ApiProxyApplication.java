@@ -28,22 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ApiProxyApplication {
 
-    @RequestMapping("/")
-    public String home() {
-        return "Hello.. Welcome to Home Page";
-    }
-
-    @RequestMapping(value = "/authToken")
-    public Map<String, String> verifyToken(@RequestHeader("token") String token,
-                            @RequestHeader("userKey") String userKey,
-                            @RequestHeader("roles") String grantedAuthorities) {
-        Map<String, String> response = new HashMap<>();
-        response.put("token", token);
-        response.put("userKey", userKey);
-        response.put("roles", grantedAuthorities);
-        return response;
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(ApiProxyApplication.class, args);
     }

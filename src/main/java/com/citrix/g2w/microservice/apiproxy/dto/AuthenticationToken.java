@@ -17,6 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Represents the token and associated data returned by authentication-service.
+ *
  * Created by Gaurav on 03/08/15.
  */
 public class AuthenticationToken {
