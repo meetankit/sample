@@ -14,10 +14,15 @@
 package com.citrix.g2w.microservice.apiproxy.service;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * Created by Gaurav on 11/08/15.
  */
 public class AuthClientServiceImplTest extends TestCase {
 
+    @Test
+    public void testAuthClientService() {
+
+    }
 }
