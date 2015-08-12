@@ -38,9 +38,9 @@ public class ApiProxyApplicationTests {
 	@Test
 	public void testClassAnnotation() {
 		ApiProxyApplication application = new ApiProxyApplication();
-		Class c = application.getClass();
+		Class cls = application.getClass();
 		Boolean hasAnnotation = false;
-		Annotation annotations[] = c.getAnnotations();
+		Annotation annotations[] = cls.getAnnotations();
 		for(Annotation annotation : annotations) {
 			if(annotation.toString().equals("@org.springframework.cloud.netflix.zuul.EnableZuulProxy()")) {
 				hasAnnotation = true;
