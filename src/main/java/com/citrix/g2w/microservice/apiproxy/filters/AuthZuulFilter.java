@@ -13,20 +13,19 @@
  */
 package com.citrix.g2w.microservice.apiproxy.filters;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
-import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.web.client.RestClientException;
-
 import com.citrix.g2w.microservice.apiproxy.dto.AuthenticationToken;
 import com.citrix.g2w.microservice.apiproxy.service.AuthClientService;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.filters.ProxyRequestHelper;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.client.RestClientException;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 /**
  * Filter for doing Authentication.
@@ -91,7 +90,7 @@ public class AuthZuulFilter extends ZuulFilter {
         } catch (RestClientException re) {
             ctx.setSendZuulResponse(false);
             try {
-                (new ProxyRequestHelper()).setResponse(org.apache.http.HttpStatus.SC_UNAUTHORIZED, null, new LinkedMultiValueMap<String, String>());
+                (new ProxyRequestHelper()).setResponse(HttpStatus.UNAUTHORIZED.value(), null, new LinkedMultiValueMap<String, String>());
             } catch (IOException e) {
                 e.printStackTrace();
             }
