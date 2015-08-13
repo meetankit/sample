@@ -19,7 +19,6 @@
 	<properties>
 		<app.name>apiproxyserver</app.name>
 		<app.name.long>api proxy microservice</app.name.long>
-        <microservices.support.version>1.0.0-SNAPSHOT</microservices.support.version>
 		<!-- tomcat -->
 		<tomcat.port>0</tomcat.port>
 		<!-- 0 means random port -->
@@ -45,19 +44,12 @@
 	    <dependency>
             <groupId>com.citrix.g2w</groupId>
             <artifactId>microservices-regdiscovery-support</artifactId>
-            <version>${microservices.support.version}</version>
         </dependency>
          <!-- Utility Annotations for minimizing boilerplate code -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-        </dependency>
-
-        <!-- Google Guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
         </dependency>
 	</dependencies>
 	<build>

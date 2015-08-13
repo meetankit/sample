@@ -39,7 +39,10 @@ service:
 zuul:
 #  prefix: api
   stripPrefix: true
-
+  routes:
+    sample:
+      path: /sample/**
+      serviceId: sample
 ##########################################
 # Eureka config
 ##########################################
@@ -47,6 +50,7 @@ eureka:
   password: password # Don't use a default password in a real app
   client:
     enabled: false
+    disableDelta: true
     serviceUrl:
       defaultZone: http://user:${eureka.password}@127.0.0.1:8761/eureka/
   instance:
@@ -67,11 +71,21 @@ spring:
   profiles: ED
 server:
   port: 8080
+regdiscovery:
+  environment: ${eureka.password:${SECURITY_USER_PASSWORD:password}}  
 eureka:
   client:
     enabled: true
+    region: ${eureka.region:us-west}
+    registerWithEureka: true
+    availabilityZones:
+      us-west: us-west-1a,us-west-1c
+      us-east: us-east-1b,us-east-1c
     serviceUrl:
-      defaultZone: http://user:${eureka.password}@g2wreged1.acad.expertcity.com:8761/eureka/
+      us-west-1a: http://user:${regdiscovery.environment}@g2wreged1.acad.expertcity.com:8761/eureka/
+      us-west-1c: http://user:${regdiscovery.environment}@g2wreged2.acad.expertcity.com:8761/eureka/
+      us-east-1b: http://user:${regdiscovery.environment}@g2wreged1.avad.expertcity.com:8761/eureka/
+      us-east-1c: http://user:${regdiscovery.environment}@g2wreged2.avad.expertcity.com:8761/eureka/
 authService:
   baseUrl: http://authed1svc.qai.expertcity.com/authentication-service        
 ####################################################################################
