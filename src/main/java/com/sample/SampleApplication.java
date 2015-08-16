@@ -11,20 +11,15 @@
  * License and Co-Branding Agreement between Citrix Online LLC and
  * the licensee.
  */
-package com.citrix.g2w.microservice.apiproxy.service;
+package com.sample;
 
-import com.citrix.g2w.microservice.apiproxy.dto.AuthenticationToken;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * Created by Gaurav on 03/08/15.
- */
-public interface AuthClientService {
+@SpringBootApplication
+public class SampleApplication {
 
-    /**
-     * Method to verify auth token.
-     * @param token
-     * @return AuthenticationToken
-     */
-    AuthenticationToken verifyToken(String token);
-    
+    public static void main(String[] args) {
+        SpringApplication.run(SampleApplication.class, args);
+    }
 }
